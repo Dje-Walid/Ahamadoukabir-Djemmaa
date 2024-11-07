@@ -1,5 +1,4 @@
 import BaseModel from "./BaseModel.js"
-import CountryModel from "./CountryModel.js"
 import PartyModel from "./PartyModel.js"
 import UserModel from "./UserModel.js"
 
