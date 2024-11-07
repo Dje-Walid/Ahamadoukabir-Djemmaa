@@ -4,11 +4,15 @@ export const up = async (knex) => {
     table.text("name").notNullable()
     table.text("lastname").notNullable()
     table.text("email").notNullable().unique()
-    table.text("adress").notNullable()
-    table.text("city").notNullable()
-    table.text("zipNumber").notNullable()
-    table.text("passwordHash")
-    table.text("passwordSalt")
+    table.text("password_hash")
+    table.text("password_salt")
+    table
+    .integer("address_id")
+    .unsigned()
+    .references("id")
+    .inTable("address")
+    .onDelete("CASCADE")
+    .onUpdate("CASCADE")
   })
 }
 
