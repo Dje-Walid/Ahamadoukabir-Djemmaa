@@ -39,7 +39,7 @@ class PartyModel extends BaseModel {
             from: "affinity.party_id",
             to: "affinity.centerofinterest_id",
           },
-          to: "centerofinterest.id",
+          to: "center_of_interest.id",
         },
       },
       BringAgames: {
@@ -48,8 +48,8 @@ class PartyModel extends BaseModel {
         join: {
           from: "party.id",
           through: {
-            from: "bringgame.party_id",
-            to: "bringgame.user_id",
+            from: "bring_game.party_id",
+            to: "bring_game.user_id",
           },
           to: "user.id",
         },
@@ -67,7 +67,7 @@ class PartyModel extends BaseModel {
         modelClass: UserModel,
         join: {
           from: "party.typeofparty_id",
-          to: "typeofparty.id",
+          to: "type_of_party.id",
         },
       },
       detail: {
@@ -75,7 +75,7 @@ class PartyModel extends BaseModel {
         modelClass: detailPartyModel,
         join: {
           from: "party.detailparty_id",
-          to: "detailParty.id",
+          to: "detail_party.id",
         },
       },
     }

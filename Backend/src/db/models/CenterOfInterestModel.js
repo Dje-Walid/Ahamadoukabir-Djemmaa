@@ -4,7 +4,7 @@ import UserModel from "./UserModel.js"
 
 class CenterOfInerestModel extends BaseModel {
   static get tableName() {
-    return "centerofinterest"
+    return "center_of_interest"
   }
   static get relationMappings() {
     return {
@@ -12,7 +12,7 @@ class CenterOfInerestModel extends BaseModel {
         relation: BaseModel.ManyToManyRelation,
         modelClass: UserModel,
         join: {
-          from: "centerofinterest.id",
+          from: "center_of_interest.id",
           through: {
             from: "like.centerofinterest_id",
             to: "like.user_id",
@@ -24,7 +24,7 @@ class CenterOfInerestModel extends BaseModel {
         relation: BaseModel.ManyToManyRelation,
         modelClass: PartyModel,
         join: {
-          from: "centerofinterest.id",
+          from: "center_of_interest.id",
           through: {
             from: "affinity.centerofinterest_id",
             to: "affinity.party_id",

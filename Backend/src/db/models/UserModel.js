@@ -87,7 +87,7 @@ class UserModel extends BaseModel {
             from: "like.user_id",
             to: "like.centerofinterest_id",
           },
-          to: "centerofinterest.id",
+          to: "center_of_interest.id",
         },
       },
       parties: {
@@ -108,8 +108,8 @@ class UserModel extends BaseModel {
         join: {
           from: "user.id",
           through: {
-            from: "bringgame.user_id",
-            to: "bringgame.party_id",
+            from: "bring_game.user_id",
+            to: "bring_game.party_id",
           },
           to: "party.id",
         },

@@ -3,7 +3,7 @@ import BaseModel from "./BaseModel.js"
 
 class detailPartyModel extends BaseModel {
   static get tableName() {
-    return "detailParty"
+    return "detail_party"
   }
   static get relationMappings() {
     return {
@@ -11,7 +11,7 @@ class detailPartyModel extends BaseModel {
         relation: BaseModel.HasManyRelation,
         modelClass: AddressModel,
         join: {
-          from: "detailParty.id",
+          from: "detail_party.id",
           to: "party.detailParty_id",
         },
       },
