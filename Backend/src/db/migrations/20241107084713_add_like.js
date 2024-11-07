@@ -6,7 +6,7 @@ export const up = async (knex) => {
     table
       .foreign("center_of_interest_id")
       .references("id")
-      .inTable("centerofinterest")
+      .inTable("center_of_interest")
       .onUpdate("CASCADE")
       .onDelete("CASCADE")
     table

@@ -1,5 +1,5 @@
 export const up = async (knex) => {
-  await knex.schema.createTable("bringgame", (table) => {
+  await knex.schema.createTable("bring_game", (table) => {
     table.integer("party_id").unsigned()
     table.integer("user_id").unsigned()
     table.text("name").notNullable()
@@ -20,5 +20,5 @@ export const up = async (knex) => {
 }
 
 export const down = async (knex) => {
-  await knex.schema.dropTable("bringgame")
+  await knex.schema.dropTable("bring_game")
 }

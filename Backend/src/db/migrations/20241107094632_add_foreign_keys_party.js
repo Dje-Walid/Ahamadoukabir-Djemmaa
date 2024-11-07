@@ -11,7 +11,7 @@ export const up = async (knex) => {
       .integer("type_of_party_id")
       .unsigned()
       .references("id")
-      .inTable("typeofparty")
+      .inTable("type_of_party")
       .onDelete("CASCADE")
       .onUpdate("CASCADE")
   })

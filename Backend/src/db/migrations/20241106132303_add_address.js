@@ -4,15 +4,9 @@ export const up = async (knex) => {
     table.text("number").notNullable()
     table.text("street").notNullable()
     table.text("city").notNullable()
-    table.text("zipCode").notNullable()
+    table.text("zip_code").notNullable()
+    table.string("country_code", 3).notNullable()
     table.text("addtional")
-    table.integer("country_id").unsigned()
-    table
-      .foreign("country_id")
-      .references("id")
-      .inTable("country")
-      .onDelete("CASCADE")
-      .onUpdate("CASCADE")
   })
 }
 
