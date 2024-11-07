@@ -1,10 +1,10 @@
 export const up = async (knex) => {
   await knex.schema.createTable("like", (table) => {
-    table.integer("centerofinterest_id").unsigned()
+    table.integer("center_of_interest_id").unsigned()
     table.integer("user_id").unsigned()
-    table.primary(["centerofinterest_id", "user_id"])
+    table.primary(["center_of_interest_id", "user_id"])
     table
-      .foreign("centerofinterest_id")
+      .foreign("center_of_interest_id")
       .references("id")
       .inTable("centerofinterest")
       .onUpdate("CASCADE")

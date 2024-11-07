@@ -2,7 +2,7 @@ export const up = async (knex) => {
   await knex.schema.createTable("mark", (table) => {
     table.increments("id")
     table.text("name").notNullable()
-    table.date("publishedAt").notNullable()
+    table.date("published_at").notNullable()
     table.integer("evaluate_id").unsigned()
     table.integer("noted_id").unsigned()
     table

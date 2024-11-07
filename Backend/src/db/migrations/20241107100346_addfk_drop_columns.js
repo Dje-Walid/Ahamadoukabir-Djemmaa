@@ -9,7 +9,7 @@ export const up = async (knex) => {
       .onUpdate("CASCADE")
     table.dropColumn("address")
     table.dropColumn("city")
-    table.dropColumn("zipNumber")
+    table.dropColumn("zip_number")
   })
 }
 
@@ -18,6 +18,6 @@ export const down = async (knex) => {
     table.dropColumn("address_id")
     table.text("address").notNullable()
     table.text("city").notNullable()
-    table.text("zipNumber").notNullable()
+    table.text("zip_number").notNullable()
   })
 }

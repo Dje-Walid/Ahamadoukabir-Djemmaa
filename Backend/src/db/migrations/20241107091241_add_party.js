@@ -1,11 +1,11 @@
 export const up = async (knex) => {
   await knex.schema.createTable("party", (table) => {
     table.increments("id")
-    table.date("beginDate").notNullable()
-    table.date("endnDate").notNullable()
-    table.text("numberOfPlace").notNullable()
-    table.boolean("isPaying").notNullable()
-    table.boolean("bringAppetizer").notNullable()
+    table.date("begin_date").notNullable()
+    table.date("end_date").notNullable()
+    table.text("number_of_place").notNullable()
+    table.boolean("is_paying").notNullable()
+    table.boolean("bring_appetizer").notNullable()
     table.integer("address_id").unsigned()
     table
       .foreign("address_id")

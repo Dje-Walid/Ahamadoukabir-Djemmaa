@@ -8,7 +8,7 @@ export const up = async (knex) => {
       .onDelete("CASCADE")
       .onUpdate("CASCADE")
     table
-      .integer("typeofparty_id")
+      .integer("type_of_party_id")
       .unsigned()
       .references("id")
       .inTable("typeofparty")
@@ -20,6 +20,6 @@ export const up = async (knex) => {
 export const down = async (knex) => {
   await knex.schema.table("party", (table) => {
     table.dropColumn("arrange_id")
-    table.dropColumn("typeofparty_id")
+    table.dropColumn("type_of_party_id")
   })
 }

@@ -37,7 +37,7 @@ class PartyModel extends BaseModel {
           from: "party.id",
           through: {
             from: "affinity.party_id",
-            to: "affinity.centerofinterest_id",
+            to: "affinity.center_of_interest_id",
           },
           to: "center_of_interest.id",
         },
@@ -66,16 +66,16 @@ class PartyModel extends BaseModel {
         relation: BaseModel.BelongsToOneRelation,
         modelClass: UserModel,
         join: {
-          from: "party.typeofparty_id",
+          from: "party.type_of_party_id",
           to: "type_of_party.id",
         },
       },
-      detail: {
-        relation: BaseModel.BelongsToOneRelation,
+      detailParties: {
+        relation: BaseModel.HasManyRelation,
         modelClass: detailPartyModel,
         join: {
-          from: "party.detailparty_id",
-          to: "detail_party.id",
+          from: "party.id",
+          to: "detail_party.party_id",
         },
       },
     }

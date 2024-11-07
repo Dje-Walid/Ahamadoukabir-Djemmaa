@@ -1,22 +1,22 @@
-import AddressModel from "./AddressModel.js"
 import BaseModel from "./BaseModel.js"
+import PartyModel from "./PartyModel.js"
 
-class detailPartyModel extends BaseModel {
+class DetailPartyModel extends BaseModel {
   static get tableName() {
     return "detail_party"
   }
   static get relationMappings() {
     return {
-      detailParties: {
-        relation: BaseModel.HasManyRelation,
-        modelClass: AddressModel,
+      detail: {
+        relation: BaseModel.BelongsToOneRelation,
+        modelClass: PartyModel,
         join: {
           from: "detail_party.id",
-          to: "party.detailParty_id",
+          to: "detail.id",
         },
       },
     }
   }
 }
 
-export default detailPartyModel
+export default DetailPartyModel

@@ -1,8 +1,8 @@
 export const up = async (knex) => {
   await knex.schema.createTable("detailParty", (table) => {
     table.increments("id")
-    table.text("gameName").notNullable()
-    table.integer("numberOfPlace").notNullable()
+    table.text("game_name").notNullable()
+    table.integer("number_of_place").notNullable()
     table.text("platform").notNullable()
     table.integer("party_id").unsigned()
     table

@@ -85,7 +85,7 @@ class UserModel extends BaseModel {
           from: "users.id",
           through: {
             from: "like.user_id",
-            to: "like.centerofinterest_id",
+            to: "like.center_of_interest_id",
           },
           to: "center_of_interest.id",
         },

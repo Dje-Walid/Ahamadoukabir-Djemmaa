@@ -14,7 +14,7 @@ class CenterOfInerestModel extends BaseModel {
         join: {
           from: "center_of_interest.id",
           through: {
-            from: "like.centerofinterest_id",
+            from: "like.center_of_interest_id",
             to: "like.user_id",
           },
           to: "users.id",
@@ -26,7 +26,7 @@ class CenterOfInerestModel extends BaseModel {
         join: {
           from: "center_of_interest.id",
           through: {
-            from: "affinity.centerofinterest_id",
+            from: "affinity.center_of_interest_id",
             to: "affinity.party_id",
           },
           to: "party.id",

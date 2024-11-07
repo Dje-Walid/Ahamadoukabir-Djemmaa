@@ -12,7 +12,7 @@ class TypeParty extends BaseModel {
         modelClass: PartyModel,
         join: {
           from: "typeparty.id",
-          to: "party.typeofparty_id",
+          to: "party.type_of_party_id",
         },
       },
     }

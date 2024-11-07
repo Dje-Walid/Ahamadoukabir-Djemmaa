@@ -6,9 +6,9 @@ export const up = async (knex) => {
     table.text("email").notNullable().unique()
     table.text("address").notNullable()
     table.text("city").notNullable()
-    table.text("zipNumber").notNullable()
-    table.text("passwordHash")
-    table.text("passwordSalt")
+    table.text("zip_number").notNullable()
+    table.text("password_hash")
+    table.text("password_salt")
   })
 }
 
