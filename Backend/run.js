@@ -9,6 +9,7 @@ import knexfile from "./knexfile.js"
 import BaseModel from "./src/db/models/BaseModel.js"
 import makeRoutesParty from "./src/db/routes/makeRouteParty/makeRoutesParty.js"
 import makeRoutesUser from "./src/db/routes/makeRouteUser/makeRoutesUser.js"
+import makeRoutesUserCountByCity from "./src/db/routes/makeRouteUserCountByCity/makeRoutesUserCountByCity.js"
 
 const run = () => {
   const app = new Hono()
@@ -24,6 +25,8 @@ const run = () => {
 
   makeRoutesUser({ app })
   makeRoutesParty({ app })
+  makeRoutesUserCountByCity({ app })
+
   app.onError((err) => {
     if (err instanceof HTTPException) {
       return err.getResponse()
