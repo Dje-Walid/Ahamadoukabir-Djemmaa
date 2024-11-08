@@ -45,7 +45,7 @@ export const seed = async (knex) => {
         .insert({
           number: faker.number.int({ min: 1, max: 1000 }),
           street: faker.location.street(),
-          city: fixedCities[faker.number.int({ min: 0, max: 9; })],
+          city: fixedCities[faker.number.int({ min: 0, max: 9 })],
           zip_code: faker.location.zipCode(),
           country_code: faker.location.countryCode("alpha-3"),
           addtional: faker.word.adjective(),

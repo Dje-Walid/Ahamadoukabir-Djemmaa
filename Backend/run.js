@@ -4,10 +4,11 @@ import { cors } from "hono/cors"
 import { HTTPException } from "hono/http-exception"
 import { logger } from "hono/logger"
 import { prettyJSON } from "hono/pretty-json"
-import makeRoutesUser from "./src/db/routes/makeRouteUser/makeRoutesUser.js"
-import BaseModel from "./src/db/models/BaseModel.js"
 import knex from "knex"
 import knexfile from "./knexfile.js"
+import BaseModel from "./src/db/models/BaseModel.js"
+import makeRoutesParty from "./src/db/routes/makeRouteParty/makeRoutesParty.js"
+import makeRoutesUser from "./src/db/routes/makeRouteUser/makeRoutesUser.js"
 
 const run = () => {
   const app = new Hono()
@@ -22,7 +23,7 @@ const run = () => {
   app.use(prettyJSON())
 
   makeRoutesUser({ app })
-
+  makeRoutesParty({ app })
   app.onError((err) => {
     if (err instanceof HTTPException) {
       return err.getResponse()
