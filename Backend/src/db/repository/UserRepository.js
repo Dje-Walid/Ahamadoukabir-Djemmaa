@@ -1,4 +1,5 @@
 /* eslint-disable class-methods-use-this */
+import { FORMERR } from "dns"
 import UserModel from "../models/UserModel.js"
 
 class UserRepository {
@@ -34,29 +35,40 @@ class UserRepository {
       VALUES (?, ?, ?, ?, ?)
       RETURNING *;
     `
-    const [newUser] = await db.raw(query, [name, lastname, email, passwordHash, passwordSalt])
+    const [newUser] = await UserModel.knex.raw(query, [name, lastname, email, passwordHash, passwordSalt])
     return newUser
   }
 
-  // Get a user by ID
-  async getUserById(id) {
-    const user = await UserModel.query().findById(id)
-    return user
+  async getUserById(userId) {
+    const query = `SELECT u.id, u.name, u.lastname, u.email
+      FROM users u 
+      LEFT JOIN address a ON a.id = u.address_id 
+      WHERE u.id = ? `
+
+    const user = await UserModel.knex().raw(query, userId)
+
+    return UserModel.fromDatabaseJson(user.rows[0])
   }
 
-  // Get all users
-  async getAllUsers() {
-    return await User.query()
+  async getAllUsers(page = 1, limit = 10) {
+    const offset = (page - 1) * limit
+
+    const query = `SELECT u.id, u.name, u.lastname, u.email
+      FROM users u 
+      LEFT JOIN address a ON a.id = u.address_id 
+      LIMIT ? OFFSET ? `
+
+    const users = await UserModel.knex().raw(query, [limit, offset])
+
+    return UserModel.fromDatabaseJson(users.rows)
   }
 
-  // Update a user by ID
-  async updateUser(id, userData) {
-    return await User.query().patchAndFetchById(id, userData)
+  async updateUser(userId, userData) {
+    return await UserModel.query().patchAndFetchById(userId, userData)
   }
 
-  // Delete a user by ID
-  async deleteUser(id) {
-    return await User.query().deleteById(id)
+  async deleteUser(userId) {
+    return await User.query().deleteById(userId)
   }
 }
 
