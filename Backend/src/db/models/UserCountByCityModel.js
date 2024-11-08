@@ -1,6 +1,6 @@
-import { Model } from "objection"
+import BaseModel from "./BaseModel.js"
 
-export default class UserCountByCity extends Model {
+export default class UserCountByCityModel extends BaseModel {
   static get tableName() {
     return "user_count_by_city"
   }

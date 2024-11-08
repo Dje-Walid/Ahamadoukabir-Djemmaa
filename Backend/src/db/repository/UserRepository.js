@@ -1,11 +1,36 @@
 /* eslint-disable class-methods-use-this */
-import { FORMERR } from "dns"
 import UserModel from "../models/UserModel.js"
+import AddressModel from "../models/AddressModel.js"
+import { pbkdf2Sync, randomBytes } from "node:crypto"
 
 class UserRepository {
-
   async createUser(userData) {
-    const { name, lastname, email, password } = userData
+    const {
+      name,
+      lastname,
+      email,
+      password,
+      numberAddress,
+      street,
+      city,
+      zipCode,
+      countryCode,
+    } = userData
+
+    const queryAddress = `
+      INSERT INTO ${AddressModel.tableName} (number, street, city, zip_code, country_code)
+      VALUES (?, ?, ?, ?, ?)
+      RETURNING *;
+    `
+    const newAddress = await AddressModel.knex().raw(queryAddress, [
+      numberAddress,
+      street,
+      city,
+      zipCode,
+      countryCode
+    ])
+
+    const addressId = newAddress.rows[0].id
 
     const security = {
       saltlen: 32,
@@ -13,7 +38,7 @@ class UserRepository {
       keylen: 256,
       digest: "sha512",
     }
-  
+
     const hashPassword = (
       password,
       salt = randomBytes(security.saltlen).toString("hex"),
@@ -31,12 +56,21 @@ class UserRepository {
     const [passwordHash, passwordSalt] = await hashPassword(password)
 
     const query = `
-      INSERT INTO ${UserModel.tableName} (name, lastname, email, password_hash, password_salt)
-      VALUES (?, ?, ?, ?, ?)
+      INSERT INTO ${UserModel.tableName} (name, lastname, email, password_hash, password_salt, address_id)
+      VALUES (?, ?, ?, ?, ?, ?)
       RETURNING *;
     `
-    const [newUser] = await UserModel.knex.raw(query, [name, lastname, email, passwordHash, passwordSalt])
-    return newUser
+
+    const newUser = await UserModel.knex().raw(query, [
+      name,
+      lastname,
+      email,
+      passwordHash,
+      passwordSalt,
+      addressId,
+    ])
+
+    return UserModel.fromDatabaseJson(newUser.rows[0])
   }
 
   async getUserById(userId) {
@@ -47,7 +81,7 @@ class UserRepository {
 
     const user = await UserModel.knex().raw(query, userId)
 
-    return UserModel.fromDatabaseJson(user.rows[0])
+    return UserModel.fromDatabaseJson(user.rows)
   }
 
   async getAllUsers(page = 1, limit = 10) {
