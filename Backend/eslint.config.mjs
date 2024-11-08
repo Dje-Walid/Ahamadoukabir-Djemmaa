@@ -1,56 +1,56 @@
+import js from "@eslint/js"
 import globals from "globals"
+import { FlatCompat } from "@eslint/eslintrc"
 import path from "node:path"
 import { fileURLToPath } from "node:url"
-import js from "@eslint/js"
-import { FlatCompat } from "@eslint/eslintrc"
+
+const compat = new FlatCompat({
+    recommendedConfig: js.configs.recommended,
+    allConfig: js.configs.all,
+})
 
 // eslint-disable-next-line no-underscore-dangle
 const __filename = fileURLToPath(import.meta.url)
 // eslint-disable-next-line no-underscore-dangle
 const __dirname = path.dirname(__filename)
-const compat = new FlatCompat({
-    baseDirectory: __dirname,
-    recommendedConfig: js.configs.recommended,
-    allConfig: js.configs.all
-})
 
-export default [...compat.extends("eslint:recommended", "prettier"), {
-    languageOptions: {
+export default [
+    ...compat.extends(
+        "eslint:recommended",
+        "prettier",
+        "next/core-web-vitals",
+        "plugin:react/recommended",
+    ),
+    {
+        files: ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"],
+        languageOptions: {
         globals: {
             ...globals.browser,
             ...globals.node,
-            ...globals.jest,
+            ...globals.es2021,
         },
-
-        ecmaVersion: 2021,
+        ecmaVersion: "latest",
         sourceType: "module",
-    },
-
-    rules: {
-        "array-callback-return": ["error", {
+        },
+        plugins: {
+        react: require("eslint-plugin-react"),
+        "react-hooks": require("eslint-plugin-react-hooks"),
+        },
+        rules: {
+        "array-callback-return": [
+            "error",
+            {
             allowImplicit: false,
             checkForEach: true,
             allowVoid: true,
-        }],
-
-        "new-cap": ["error", {
-            capIsNewExceptions: ["BlobServiceClient", "SHA256"],
-        }],
-
+            },
+        ],
         "no-await-in-loop": "error",
         "no-constant-binary-expression": "error",
         "no-constructor-return": "error",
-
-        "no-duplicate-imports": ["error", {
-            includeExports: true,
-        }],
-
+        "no-duplicate-imports": ["error", { includeExports: true }],
         "no-new-native-nonconstructor": "error",
-
-        "no-promise-executor-return": ["error", {
-            allowVoid: true,
-        }],
-
+        "no-promise-executor-return": ["error", { allowVoid: true }],
         "no-self-compare": "error",
         "no-template-curly-in-string": "error",
         "no-unmodified-loop-condition": "error",
@@ -58,22 +58,21 @@ export default [...compat.extends("eslint:recommended", "prettier"), {
         "no-unused-private-class-members": "error",
         "require-atomic-updates": "error",
         "arrow-body-style": ["error", "as-needed"],
-
-        camelcase: ["error", {
+        camelcase: [
+            "error",
+            {
             properties: "always",
             ignoreDestructuring: true,
             ignoreImports: true,
             ignoreGlobals: true,
-        }],
-
-        "capitalized-comments": ["error", "always", {
-            ignoreConsecutiveComments: true,
-        }],
-
-        "class-methods-use-this": ["error", {
-            enforceForClassFields: true,
-        }],
-
+            },
+        ],
+        "capitalized-comments": [
+            "error",
+            "always",
+            { ignoreConsecutiveComments: true },
+        ],
+        "class-methods-use-this": ["error", { enforceForClassFields: true }],
         complexity: ["error", 7],
         "consistent-return": "error",
         curly: ["error", "all"],
@@ -82,40 +81,29 @@ export default [...compat.extends("eslint:recommended", "prettier"), {
         eqeqeq: ["error", "always"],
         "func-name-matching": "error",
         "func-names": "error",
-
-        "func-style": ["error", "declaration", {
-            allowArrowFunctions: true,
-        }],
-
+        "func-style": ["error", "declaration", { allowArrowFunctions: true }],
         "grouped-accessor-pairs": ["error", "getBeforeSet"],
         "guard-for-in": "error",
         "init-declarations": ["error", "always"],
-
-        "logical-assignment-operators": ["error", "always", {
-            enforceForIfStatements: true,
-        }],
-
-        "max-classes-per-file": ["error", {
-            ignoreExpressions: true,
-        }],
-
+        "logical-assignment-operators": [
+            "error",
+            "always",
+            { enforceForIfStatements: true },
+        ],
+        "max-classes-per-file": ["error", { ignoreExpressions: true }],
         "max-depth": ["error", 3],
-
-        "max-lines": ["error", {
-            max: 250,
-            skipBlankLines: true,
-            skipComments: true,
-        }],
-
-        "max-lines-per-function": ["warn", {
-            max: 50,
-            skipBlankLines: true,
-            skipComments: true,
-        }],
-
+        "max-lines": [
+            "error",
+            { max: 150, skipBlankLines: true, skipComments: true },
+        ],
+        "max-lines-per-function": [
+            "warn",
+            { max: 100, skipBlankLines: true, skipComments: true },
+        ],
         "max-nested-callbacks": ["error", 3],
         "max-params": ["error", 3],
         "multiline-comment-style": ["error", "separate-lines"],
+        "new-cap": "error",
         "no-alert": "error",
         "no-bitwise": "error",
         "no-caller": "error",
@@ -154,125 +142,53 @@ export default [...compat.extends("eslint:recommended", "prettier"), {
         "no-shadow": "error",
         "no-throw-literal": "error",
         "no-undef-init": "error",
-        "no-undefined": "error",
-
-        "no-underscore-dangle": ["error", {
-            allowFunctionParams: false,
-        }],
-
-        "no-unneeded-ternary": ["error", {
-            defaultAssignment: false,
-        }],
-
-        "no-unused-expressions": ["error", {
-            enforceForJSX: true,
-        }],
-
+        "no-underscore-dangle": ["error", { allowFunctionParams: false }],
+        "no-unused-expressions": ["error", { enforceForJSX: true }],
         "no-useless-call": "error",
-
-        "no-useless-computed-key": ["error", {
-            enforceForClassMembers: true,
-        }],
-
-        "no-useless-concat": "error",
+        "no-useless-computed-key": ["error", { enforceForClassMembers: true }],
         "no-useless-constructor": "error",
-        "no-useless-rename": "error",
-        "no-useless-return": "error",
         "no-var": "error",
-
-        "no-warning-comments": ["error", {
-            terms: ["todo"],
-        }],
-
         "object-shorthand": ["error", "always"],
-        "one-var": ["error", "never"],
-        "operator-assignment": ["error", "always"],
         "prefer-arrow-callback": "error",
-
-        "prefer-const": ["error", {
-            destructuring: "any",
-            ignoreReadBeforeAssign: false,
-        }],
-
-        "prefer-destructuring": "error",
+        "prefer-const": [
+            "error",
+            { destructuring: "any", ignoreReadBeforeAssign: false },
+        ],
         "prefer-exponentiation-operator": "error",
-        "prefer-numeric-literals": "error",
         "prefer-object-has-own": "error",
-        "prefer-object-spread": "error",
-        "prefer-promise-reject-errors": "error",
-
-        "prefer-regex-literals": ["error", {
-            disallowRedundantWrapping: true,
-        }],
-
-        "prefer-rest-params": "error",
-        "prefer-spread": "error",
-        "prefer-template": "error",
-        radix: "error",
-        "require-await": "error",
-        "require-unicode-regexp": "error",
-        "symbol-description": "error",
-        yoda: "error",
-
-        "line-comment-position": ["error", {
-            position: "above",
-        }],
-
-        indent: "off",
-        "linebreak-style": ["error", "unix"],
-        "newline-before-return": "error",
-        "no-undef": "error",
-        "padded-blocks": ["error", "never"],
-
-        "padding-line-between-statements": ["error", {
+        "prefer-regex-literals": ["error", { disallowRedundantWrapping: true }],
+        quotes: [
+            "error",
+            "double",
+            { avoidEscape: true, allowTemplateLiterals: true },
+        ],
+        semi: ["error", "never"],
+        "padding-line-between-statements": [
+            "error",
+            {
             blankLine: "always",
             prev: "*",
-
             next: [
-                "break",
-                "case",
-                "cjs-export",
-                "class",
-                "continue",
-                "do",
-                "export",
-                "if",
                 "return",
+                "class",
+                "export",
+                "function",
+                "if",
                 "switch",
                 "try",
-                "while",
             ],
-        }, {
-            blankLine: "always",
-
-            prev: [
-                "break",
-                "case",
-                "cjs-export",
-                "class",
-                "continue",
-                "do",
-                "export",
-                "if",
-                "return",
-                "switch",
-                "try",
-                "while",
-            ],
-
-            next: "*",
-        }, {
-            blankLine: "never",
-            prev: ["const", "let"],
-            next: "const",
-        }],
-
-        quotes: ["error", "double", {
-            avoidEscape: true,
-            allowTemplateLiterals: true,
-        }],
-
-        "space-before-blocks": "error",
-        semi: ["error", "never"],
+            },
+            { blankLine: "always", prev: ["const", "let", "var"], next: "*" },
+            { blankLine: "never", prev: ["import"], next: ["import"] },
+        ],
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "warn",
+        "react/react-in-jsx-scope": "off",
+        },
+        settings: {
+        react: {
+            version: "detect",
+        },
+        },
     },
-}]
+]

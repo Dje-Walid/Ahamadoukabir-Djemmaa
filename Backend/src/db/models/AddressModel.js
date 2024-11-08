@@ -8,14 +8,6 @@ class AddressModel extends BaseModel {
   }
   static get relationMappings() {
     return {
-      country: {
-        relation: BaseModel.BelongsToOneRelation,
-        modelClass: CountryModel,
-        join: {
-          from: "mark.country_id",
-          to: "country.id",
-        },
-      },
       residences: {
         relation: BaseModel.HasManyRelation,
         modelClass: UserModel,
