@@ -6,12 +6,14 @@ import { pbkdf2Sync, randomBytes } from "node:crypto"
 export const seed = async (knex) => {
   await knex("users").del()
   await knex("address").del()
+
   const security = {
     saltlen: 32,
     iterations: 310000,
     keylen: 256,
     digest: "sha512",
   }
+
   const hashPassword = (
     password,
     salt = randomBytes(security.saltlen).toString("hex"),
@@ -25,13 +27,25 @@ export const seed = async (knex) => {
     ).toString("hex"),
     salt,
   ]
+  // Générer 10 noms de villes uniques
+  const generateCities = (count = 10) => {
+    const cities = new Set()
+
+    while (cities.size < count) {
+      cities.add(faker.location.city())
+    }
+
+    return Array.from(cities)
+  }
+  const fixedCities = generateCities(10)
+
   const users = await Promise.all(
     [...new Array(100)].map(async () => {
       const [addressId] = await knex("address")
         .insert({
           number: faker.number.int({ min: 1, max: 1000 }),
           street: faker.location.street(),
-          city: faker.location.city(),
+          city: fixedCities[faker.number.int({ min: 0, max: 9; })],
           zip_code: faker.location.zipCode(),
           country_code: faker.location.countryCode("alpha-3"),
           addtional: faker.word.adjective(),
@@ -60,4 +74,5 @@ export const seed = async (knex) => {
   )
 
   await knex("users").insert(users)
+  await knex.raw("REFRESH MATERIALIZED VIEW user_count_by_city")
 }
