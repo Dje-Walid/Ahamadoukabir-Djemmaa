@@ -1,0 +1,100 @@
+{
+	"info": {
+		"_postman_id": "941c8e84-4e45-4eee-981f-2df2310575ba",
+		"name": "PartyApp",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "28201398"
+	},
+	"item": [
+		{
+			"name": "Party",
+			"item": [
+				{
+					"name": "Get PartyBy Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3001/party/1"
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteParty",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:3001/party/5"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "getUserBYID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/users/:userId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"users",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUsers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3001/users"
+					},
+					"response": []
+				},
+				{
+					"name": "create user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"ddd\",\n    \"lastname\": \"dd\",\n    \"email\": \"dd@q.dd\",\n    \"password\": \"test\",\n    \"numberAddress\": 12,\n    \"street\": \"adddd\",\n    \"city\": \"dddd\",\n    \"zipCode\": 93370,\n    \"countryCode\": \"FR\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3001/users "
+					},
+					"response": []
+				},
+				{
+					"name": "countByCity",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3001/user-count-by-city"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
