@@ -65,7 +65,7 @@ Le projet sera accessible sur [http://localhost:3001](http://localhost:3001).
 
 ## 📂 Fichiers importants
 
-- **Partition de tables et index** : Ici a été fais la partition de la table Users sur les dates de naissance
+- **Partition de tables et index** : Ici a été fais la partition de la table Users sur les dates de naissance et pour cela il a été nécessaire d'utiliser les index
   - 📄 Voir [`20241106132403_add_user.js`](Backend/src/db/migrations/20241106132403_add_user.js) 
   - 📄 Voir [`20241108095401_add_user_partitioned.js`](Backend/src/db/migrations/20241108095401_add_user_partitioned.js)
 
@@ -81,4 +81,12 @@ Le projet sera accessible sur [http://localhost:3001](http://localhost:3001).
 
 ---
 
-**Merci d'avoir utilisé ce projet ! N'hésitez pas à donner votre feedback.** 🚀
+## 📚 Guide des routes principales
+
+Vous retrouverez les routes à utiliser afin de tester l'api dans le fichier suivant avec une petite documentation : 
+- **Doc api** 
+  - 📄 Voir [`apiDoc.md`](documentation/apiDoc.md)
+- **MCD**
+  - 📄 Voir [`mcd.webp`](documentation/mcd.webp)
+
+**Si vous avez la moindre questions hésitez pas à revenir vers nous sur discord** 🚀
