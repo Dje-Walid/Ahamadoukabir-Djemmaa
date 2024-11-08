@@ -75,7 +75,7 @@ class UserModel extends BaseModel {
         modelClass: AddressModel,
         join: {
           from: "users.id",
-          to: "address.address_id",
+          to: "address.id",
         },
       },
       likes: {

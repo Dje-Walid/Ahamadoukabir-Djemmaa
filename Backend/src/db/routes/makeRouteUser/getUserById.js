@@ -12,6 +12,7 @@ const getUserById = ({ app }) => {
 
       return c.json({ result: sanitizeUser(user)})
     } catch (error) {
+      console.log(error)
       throw new HTTPException(500, { res: ErrorOccurred } )
     }
   })
