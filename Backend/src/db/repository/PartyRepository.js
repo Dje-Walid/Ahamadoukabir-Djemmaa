@@ -80,6 +80,16 @@ class PartyRepository {
     )
     return party
   }
+  deletePartyById = async (id) => {
+    try {
+      const numDeleted = await PartyModel.query().delete().where("id", id)
+      console.log(`Number of records deleted: ${numDeleted}`)
+      return numDeleted
+    } catch (error) {
+      console.error("Error deleting party:", error)
+      throw error
+    }
+  }
 }
 
 export default new PartyRepository()
