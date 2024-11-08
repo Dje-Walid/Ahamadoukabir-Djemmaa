@@ -39,6 +39,10 @@ export const seed = async (knex) => {
         .returning("id")
       const firstName = faker.person.firstName()
       const lastname = faker.person.lastName()
+      const date_of_birth = faker.date.between({
+        from: "1980-01-01",
+        to: Date.now(),
+      })
       const [passwordHash, passwordSalt] = await hashPassword(
         faker.internet.password(),
       )
@@ -50,6 +54,7 @@ export const seed = async (knex) => {
         password_hash: passwordHash,
         password_salt: passwordSalt,
         address_id: addressId.id,
+        date_of_birth,
       }
     }),
   )
